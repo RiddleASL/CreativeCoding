@@ -1,4 +1,4 @@
-let numBlocks = 2;
+let numBlocks = 10;
 let chartWidth = 300;
 let chartHeight = 400;
 let marginLeft = 20;
@@ -6,9 +6,11 @@ let marginRight=5;
 let blockGap = 10;
 let screenWidth=500;
 let screenHeight=500;
+
 let blockWidth =(chartWidth - (marginLeft+marginRight) - ((numBlocks-1)*blockGap))/numBlocks;
 let firstBlockxPos = ((screenWidth-chartWidth)/2)+marginLeft;
 let masterGap = blockWidth+blockGap
+
 console.log(blockWidth)
 
 function setup(){
