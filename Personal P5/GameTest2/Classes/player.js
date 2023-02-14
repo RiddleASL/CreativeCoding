@@ -5,13 +5,26 @@ function Player(x,y,w,h,speed=5){
     this.h = h;
     this.speed = speed;
 
-    this.draw = function(){
+    this.draw = function(angle){
         push()
         
         //* Draw plyer, translate, rotate
         translate(this.x, this.y-this.h)
-        rect(0,0,this.w,this.h)
+        rotate(angle);
+        rect(-this.w/2,0,this.w,this.h)
 
+        if(keyIsDown(RIGHT_ARROW)){
+            this.x += speed;
+        } else if(keyIsDown(LEFT_ARROW)){
+            this.x -= speed;
+        }
+
+        if(keyIsDown(DOWN_ARROW)){
+            this.y += speed;
+        } else if(keyIsDown(UP_ARROW)){
+            this.y -= speed;
+        }
+        
         pop()
     }
 }

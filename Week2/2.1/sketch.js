@@ -48,7 +48,8 @@ function draw(){
  // background(200);
   fill (0,0,100);
   strokeWeight(0)
-  translate((canvasWidth/2)-graphWidth/2-margin, 450)
+  translate((canvasWidth/2)-graphWidth/2-margin, 100)
+  rotate(90)
 
   for(let x=0;x<fruitList.length;x++){
     push();
@@ -64,20 +65,24 @@ function draw(){
   line(0, 0, graphWidth, 0)
   line(0, 0, 0, -graphHeight)
 
+  // rotate(-90)
   strokeWeight(2)
   for (let x = 0; x <= tickAmount; x++) {
     line(0,x*-tickGap,-10,x*-tickGap)
-    text(x*numGap,-35,x*-tickGap)
+  }
+  rotate(-90)
+  for (let x = 0; x <= tickAmount; x++) {
+    text(x*numGap,x*+tickGap,-35)
   }
 
-  push()
-  textSize(fontSize)
-  rotate(-90)
-  text("Fruit Sold", graphHeight/2-25, -40)
-  pop()
+  // push()
+  // textSize(fontSize)
+  // rotate(-90)
+  // text("Fruit Sold", graphHeight/2-25, -40)
+  // pop()
 
-  push()
-  textSize(fontSize);
-  text("Fruits", graphWidth/2-25,50)
-  pop()
+  // push()
+  // textSize(fontSize);
+  // text("Fruits", graphWidth/2-25,50)
+  // pop()
 }

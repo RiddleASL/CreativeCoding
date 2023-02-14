@@ -44,27 +44,7 @@ function draw()
 		finalAngle = 180+(360%angle);
 	}
 	
+	player.draw(finalAngle);
 
-	// if(player.x > mouseX){
-	// 	distUsed = dist2;
-	// } else {
-	// 	distUsed = dist1;
-	// }
-
-	// player.draw();
-	line(player.x, player.y, mouseX, mouseY)
-	line(player.x, player.y, player.x, dist1+player.y)
-	line(player.x, dist1+player.y, mouseX, mouseY)
-
-	text(dist(player.x, player.y, mouseX, mouseY), 100, 100)
-	text(dist(player.x, player.y, player.x, dist1+player.y), 100, 200)
-	text(dist(player.x, dist1+player.y, mouseX, mouseY), 100, 300)
-
-
-	push()
-	translate(player.x, player.y);
-	rotate(finalAngle)
-	rect(-player.w/2,0,player.w,player.h*2)
-	pop()
 	console.log(finalAngle);
 }
