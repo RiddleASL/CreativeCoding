@@ -55,7 +55,7 @@ function draw(){
     push();
     translate(margin + (x*topGap), 0)
     noStroke()
-    fill(x*colorAngle, 100, 100)
+    // fill(x*colorAngle, 100, 100)
     rect (0,0,widthBlock,scaleMeBaby(-fruitList[x].sales));
     pop();
   }
@@ -70,7 +70,6 @@ function draw(){
   for (let x = 0; x <= tickAmount; x++) {
     line(0,x*-tickGap,-10,x*-tickGap)
   }
-  rotate(-90)
   for (let x = 0; x <= tickAmount; x++) {
     text(x*numGap,x*+tickGap,-35)
   }
