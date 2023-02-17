@@ -1,4 +1,6 @@
 let data = []
+let fruits = [];
+let charts = [];
 let chart1;
 let chart2;
 
@@ -29,25 +31,42 @@ function setup()
 	bg = color(0,0,80)
 	background(bg);
 	cleanTable(test,data)
-	chart1 = new fancyBars(700,450,400,400,data);
-	chart1.render();
+	// chart1 = new fancyBars(200,600,400,400,data);
+	// chart1.render();
 
-	chart2 = new circlePercentage(300,300,100,200,40);
-	chart2.render()
+	// chart2 = new circlePercentage(125,125,50,100,4);
+	// chart2.render()
+
+	for (let x = 0; x <5; x++) {
+		fruits.push({name: `Fruit${x}`, sales:Math.floor(random(1,200))})
+		
+	}
+	
+	charts.push(
+		new BarChart(300,300,700,325,6,fruits),
+		new circlePercentage(125,125,50,100,4),
+		new circlePercentage(1150,125,50,100,50),
+		new fancyBars(200,600,400,400,data)
+		)
 }
 
 function draw()
 {
+	
 
 	if(keyIsDown(UP_ARROW)){
 		background(bg);
-		chart2.up(1)
-		chart2.render()
+		charts[1].up(1)
+		charts[2].up(1)
 	} else if(keyIsDown(DOWN_ARROW)){
 		background(bg);
-		chart2.down(1)
-		chart2.render()
+		charts[1].down(1)
+		charts[2].down(1)
 	}
+
+	charts.forEach(chart => {
+		chart.render();
+	});
 
 }
 

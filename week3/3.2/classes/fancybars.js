@@ -43,7 +43,6 @@ class fancyBars{
 
             ellipse(this.barWidth/2, this.barWidth/2, 10, 10)
             fill(0,0,0)
-            textStyle(BOLD)
             text(data.name.toUpperCase(),this.barWidth/4,this.barWidth)
             text(`${data.sales}/${data.salesPossible}`,this.barWidth/4,this.barWidth*1.2)
 
