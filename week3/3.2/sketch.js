@@ -38,35 +38,44 @@ function setup()
 	// chart2.render()
 
 	for (let x = 0; x <5; x++) {
-		fruits.push({name: `Fruit${x}`, sales:Math.floor(random(1,200))})
+		fruits.push({name: `Fruit ${x+1}`, sales:Math.floor(random(1,200))})
 		
 	}
 	
 	charts.push(
-		new BarChart(300,300,700,325,6,fruits),
-		new circlePercentage(125,125,50,100,4),
+		new BarChart(250,250,700,250,6,fruits),
+		new circlePercentage(125,125,50,75,4),
 		new circlePercentage(1150,125,50,100,50),
 		new fancyBars(200,600,400,400,data)
 		)
+
+		textAlign(CENTER)
+
+		charts.forEach(chart => {
+			chart.render();
+		});
 }
 
 function draw()
 {
-	
 
 	if(keyIsDown(UP_ARROW)){
 		background(bg);
 		charts[1].up(1)
 		charts[2].up(1)
+		charts.forEach(chart => {
+			chart.render();
+		});
 	} else if(keyIsDown(DOWN_ARROW)){
 		background(bg);
 		charts[1].down(1)
 		charts[2].down(1)
+		charts.forEach(chart => {
+			chart.render();
+		});
 	}
 
-	charts.forEach(chart => {
-		chart.render();
-	});
+	
 
 }
 

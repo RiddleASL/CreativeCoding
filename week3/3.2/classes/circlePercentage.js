@@ -19,9 +19,9 @@ class circlePercentage{
         translate(this.posX, this.posY)
         for (let x = 0; x < this.dashes; x++) {
             let strokeCol;
-            let angle = 360/this.percentage;
+            let angle = 100/this.dashes;
             if(x < this.percentage*(this.dashes/100)){
-                strokeCol = color(angle*x,100,100)
+                strokeCol = color(270,100,100)
             } else{
                 strokeCol = color(0,0,0)
             }
@@ -29,22 +29,22 @@ class circlePercentage{
             rotate(360/this.dashes)
             strokeWeight(3)
             stroke(strokeCol)
-            line(this.radius, this.radius, this.radius+(this.radius/2), this.radius+10)
+            line(this.radius, this.radius, this.radius+10, this.radius+10)
         }
         console.log(this.percentage);
         noStroke()
         textSize(this.radius/1.5)
-        text(`${this.percentage}%`,-this.radius/1.5,10)
+        text(`${this.percentage}%`,0,10)
         pop()
         
         
     }
 
     up(_num){
-        this.percentage += Math.ceil(_num*(100/this.dashes));
+        this.percentage += Math.ceil(_num);
     }
 
     down(_num){
-        this.percentage -= Math.ceil(_num*(100/this.dashes));
+        this.percentage -= Math.ceil(_num);
     }
 }

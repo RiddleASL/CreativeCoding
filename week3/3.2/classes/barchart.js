@@ -64,7 +64,10 @@ class BarChart{
             push()
             translate(this.margin + (x*this.topGap), 0)
             fill(100)
-            rect (0,0,this.widthBlock,this.scaleMeBaby(-this.data[x].sales),0,0,30,30);
+            rect (0,0,this.widthBlock,this.scaleMeBaby(-this.data[x].sales),0,0,10,10);
+            fill(0)
+            noStroke()
+            text(this.data[x].sales,this.widthBlock/2,this.scaleMeBaby(-this.data[x].sales)-10)
             pop()
         }
 
@@ -74,6 +77,16 @@ class BarChart{
             noStroke()
             text(x*this.finalNumGap,-this.fontSize*2.5,x*-this.tickGap)
         }
+
+        this.data.forEach((data,i) => {
+            push()
+            translate((this.widthBlock+this.bars)*(i+1),this.fontSize)
+            rotate(-45)
+            textAlign(RIGHT)
+            noStroke()
+            text(data.name,0,0)
+            pop()
+        })
 
         pop()
 

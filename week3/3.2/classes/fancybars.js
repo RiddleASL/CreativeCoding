@@ -43,11 +43,11 @@ class fancyBars{
 
             ellipse(this.barWidth/2, this.barWidth/2, 10, 10)
             fill(0,0,0)
-            text(data.name.toUpperCase(),this.barWidth/4,this.barWidth)
-            text(`${data.sales}/${data.salesPossible}`,this.barWidth/4,this.barWidth*1.2)
+            text(data.name.toUpperCase(),this.barWidth/2,this.barWidth)
+            text(`${data.sales}/${data.salesPossible}`,this.barWidth/2,this.barWidth*1.2)
 
             fill(0,0,100)
-            text(`${this.scale(data).percentage*100}%`,this.barWidth/4,-this.xAxisH)
+            text(`${this.scale(data).percentage*100}%`,this.barWidth/2,-this.xAxisH)
             pop()
         });
 
