@@ -23,7 +23,7 @@ class circlePercentage{
             if(x < this.percentage*(this.dashes/100)){
                 strokeCol = color(270,100,100)
             } else{
-                strokeCol = color(30)
+                strokeCol = color(0,0,0)
             }
 
             rotate(360/this.dashes)
@@ -31,6 +31,7 @@ class circlePercentage{
             stroke(strokeCol)
             line(this.radius, this.radius, this.radius+10, this.radius+10)
         }
+        console.log(this.percentage);
         noStroke()
         textSize(this.radius/1.5)
         text(`${this.percentage}%`,0,10)

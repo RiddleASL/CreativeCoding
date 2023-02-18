@@ -26,9 +26,9 @@ class fancyBars{
     }
 
     render(){
-        fill(100)
+        fill(0)
         push()
-        stroke(20)
+        stroke(0)
         translate(this.posX, this.posY)
         fill(20)
         rect(0, 0, this.width,this.xAxisH,this.xAxisCorner)
