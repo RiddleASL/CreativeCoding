@@ -8,41 +8,31 @@ class stackedChart{
         this.data = _data,
         this.margin = 10,
         this.gap = 5,
+        this.ticks = 5,
 
         //* Calculated Variables
-        this.barlenght = this.barCount(this.data).lenght
+        this.barlenght = this.barCount(this.data).lenght,
         this.widthBlock = (this.width - (this.margin+this.margin) - ((this.barlenght-1)*this.gap))/this.barlenght,
         this.topGap = this.widthBlock+this.gap,
         this.bars = this.createBlocks(this.data),
         this.maxNum = this.maxFinder(this.bars),
-        this.valueNames = this.getValueNames(this.data).names,
-        this.colorAngle = 360/((this.valueNames.length - 1))
+        this.tickGap = this.height/this.ticks,
+        this.numGap = (this.maxNum/this.ticks).toFixed(0),
+        this.fontSize = this.width/20,
+        this.colorAngle
 
-        console.log(this.maxFinder(this.bars));
+        console.log(this.barCount(this.data));
     }
 
     barCount(_data=[]){
         let string = "";
         _data.forEach((data) =>{
             if(!string.includes(data.year)){
-                string += data.year + " "
-            } else {
-
+                string += data.year
             }
         })
 
-        return {array:string.split(" "), lenght:string.split(" ").length-1};
-    }
-
-    getValueNames(_data){
-        let names = "";
-        _data.forEach((data) =>{
-            if(!names.includes(data.name)){
-                names += data.name + ","
-            }
-        })
-
-        return {names: names.split(","), lenght:names.split(",").lenght-1}
+        return {array:string.match(/.{1,4}/g), lenght:string.match(/.{1,4}/g).length};
     }
 
     createBlocks(_data){
@@ -81,7 +71,7 @@ class stackedChart{
     }
 
     render(){
-        
+        textSize(this.fontSize)
 
         push()
         translate(this.posX, this.posY)
@@ -91,9 +81,11 @@ class stackedChart{
 
         this.bars.forEach((data,i) => {
             let yMod = 0;
-            let values = "";
+            this.colorAngle = 360/((data.data.length))
+
             push()
             translate(this.margin + (this.topGap*i),0)
+            
 
             for (let x = 0; x < data.data.length; x++) {
                 fill(this.colorAngle*x,100,95)
@@ -105,10 +97,40 @@ class stackedChart{
             // rect(0, 0, this.widthBlock,-this.scaleBar(data.data[0]))
             // rect(0, -this.scaleBar(data.data[0]), this.widthBlock,-this.scaleBar(data.data[1]))
 
+            // push()
+            //     translate(this.widthBlock/2,this.height/18)
+            //     rotate(-45)
+            //     textAlign(RIGHT)
+            //     text(data.year, 0, 0)
+            // pop()
+
             textAlign(CENTER)
-            text(data.year, this.widthBlock/2, 20)
+            text(data.year, this.widthBlock/2,this.height/18)
+
             pop()
         });
+
+        for (let x = 0; x < this.ticks+1; x++) {
+            textAlign(RIGHT)
+            text(this.numGap*x,-this.width/15,-this.tickGap*x)
+            line(0,-this.tickGap*x,-this.width/25,-this.tickGap*x)
+        }
+
+        // textAlign(RIGHT)
+        // text(this.numGap*(i+1),-this.width/15,-this.tickGap*(i+1))
+        // line(0,-this.tickGap*(i+1),-this.width/25,-this.tickGap*(i+1))
+
+        // text(0,-this.width/15,0)
+        // line(0,0,-this.width/25,0)
+
+        textAlign(CENTER)
+        textStyle(BOLD)
+        text("~ Year ~",this.width/2,this.height/5)
         pop()
+
+
+
+        textStyle(NORMAL)
+        textAlign(LEFT)
     }
 }
