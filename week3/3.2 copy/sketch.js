@@ -43,7 +43,7 @@ function setup()
 	}
 	
 	charts.push(
-		new BarChart(250,250,700,25w0,6,fruits),
+		new BarChart(250,250,700,250,6,fruits),
 		new circlePercentage(125,125,50,75,4),
 		new circlePercentage(1150,125,50,100,50),
 		new fancyBars(200,600,400,400,data)
