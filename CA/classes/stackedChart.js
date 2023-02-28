@@ -17,7 +17,7 @@ class stackedChart{
         this.bars = this.createBlocks(this.data),
         this.maxNum = this.maxFinder(this.bars),
         this.tickGap = this.height/this.ticks,
-        this.numGap = (this.maxNum/this.ticks).toFixed(0),
+        this.numGap = (this.maxNum/this.ticks)/1000,
         this.fontSize = this.width/20,
         this.colorAngle
 
@@ -64,7 +64,7 @@ class stackedChart{
         return Math.max(...numbers)
     }
 
-    scaleBar(_bar){
+    scaleBar(_bar,_max){
         let scale = this.height / this.maxNum;
 
         return _bar * scale;
