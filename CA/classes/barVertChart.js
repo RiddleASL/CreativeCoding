@@ -19,8 +19,6 @@ class barVertChart{
         this.numGap = this.maxNum / this.ticks
 
         //* Debug section
-        let test = this.getBarsByYear(this.data)
-        console.log(test);
     }
 
     getBarsByYear(_data){
@@ -69,17 +67,20 @@ class barVertChart{
         line(0, 0, 0, -this.height)
 
         this.barsYear.forEach((check) => {
-            console.log(check);
             if(check.year == year){
-                let barWidth = ((this.width - (this.margin) - (this.gap*(check.data.length-1))) / check.data.length)/2
-                let blockGap = barWidth*2+this.gap
+                let barWidth = ((this.width - (this.margin*2) - (this.gap*(check.data.length-1))) / check.data.length)
+                let blockGap = barWidth+this.gap
+                let colorShade = 100/check.data.length;
                 max = this.getMax(check.data)
+
                 check.data.forEach((bar,i) => {
                     push()
+                        fill(140, 75, map(bar.total,0,max,30,100))
                         translate((this.margin + (i*blockGap)), 0)
                         rect(0, 0, barWidth, this.scale(-bar.total,max))
                         textAlign(CENTER)
                         noStroke()
+                        fill(0)
                         text(bar.total,barWidth/2,this.scale(-bar.total,max)-10)
 
                         push()
@@ -87,7 +88,7 @@ class barVertChart{
                             rotate(-45)
                             text(bar.ageGroup,-5,20)
                         pop()
-
+                    
                     pop()
                 })
             }
@@ -97,7 +98,8 @@ class barVertChart{
 
         for(let x=0; x <= this.ticks; x++){
             textAlign(RIGHT)
-            line(0,-this.tickGap*x,-10,)
+            stroke(0)
+            line(0,-this.tickGap*x,-10,-this.tickGap*x)
             noStroke()
             text(Math.ceil(numGap)*x,-20,-this.tickGap*x)
         }
