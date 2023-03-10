@@ -22,6 +22,7 @@ class barHoriChart{
         // console.log(this.bars);
     }
 
+
     makeBars(_data){
         let years = []
         _data.forEach((values,i) => {
@@ -42,59 +43,90 @@ class barHoriChart{
         return bars
     }
 
+    //* Get max of the datas using total as the object key
     getMax(_data){
         let bars = []
         _data.forEach((data,i)=>{
-            bars.push(data.data[i].total)
-            // console.log(data.data[i].total);
+            data.data.forEach(value => {
+                bars.push(value.total)
+                // console.log(value.total);
+            })
         })
-
-        // console.log(bars);
 
         return Math.max(... bars)
     }
 
+    //* Scale passed in data to the passed in max value
     scale(_data, _max){
         let scale = this.width / _max
 
         return _data * scale;
     }
 
+    getTotal(_data){
+        let num = 0
+
+        _data.data.forEach(value => {
+            num += value.total;
+        })
+
+        return num;
+    }
+
+    //* Render the chart between the two years given.
     renderYear(_year1, _year2){
-        stroke(0)
+        stroke(255)
+        fill(255)
         let lenght = (_year2 - _year1)+1;
         let barHeight = ((this.height - (this.margin*2) - (this.gap*(lenght-1))) / lenght)
         let blockGap = barHeight + this.gap
         let index = 1;
         let years = []
+        let totals = [];
 
         push()
         translate(this.posX, this.posY)
-        line(0, 0, this.width, 0)
-        line(0, 0, 0, -this.height)
+        
 
+        //* Get a list of the years
         this.bars.forEach(bar => {
             if(bar.year >= _year1 && bar.year <= _year2){
                 years.push(bar)
+                totals.push(this.getTotal(bar))
             }
         })
 
-        let max = this.getMax(years)
+        let max = Math.max(... totals)
+        // console.log(max);
 
-        this.bars.forEach((bar,i) => {
-            if(bar.year >= _year1 && bar.year <= _year2){
+        //* loop for each of the bars given
+        years.forEach((bar,i) => {
 
-                let color = 100 * bar.data[i].total/max
+            let color = (totals[i]/max)
 
-                push()
-                fill(250,75,color+20)
-                translate(0, (this.margin - (index*blockGap)))
-                rect(0, 0, this.scale(bar.data[i].total,max),-barHeight)
-                pop()
+            push()
+            fill(250,75,color+20)
+            translate(0, -this.margin - ((barHeight+this.gap) * i))
+            noStroke()
+            rect(0, 0, this.scale(totals[i],max),-barHeight)
+            pop()
 
-                index++;
-            }
+            index++;
+
+            //*Index is needed since looping through all the data makes it impracticle to use i for index
         })
+
+        line(0, 0, this.width, 0)
+        line(0, 0, 0, -this.height)
+
+        for(let x=0; x < years.length; x++){
+            push()
+            translate(-10,-this.height+(this.margin+(blockGap/2))+(blockGap*x))
+            noStroke()
+            textAlign(RIGHT)
+            text(years[x].year,0,0)
+            pop()
+        }
         pop()
     }
 }

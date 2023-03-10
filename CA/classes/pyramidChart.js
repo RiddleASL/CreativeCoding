@@ -21,6 +21,8 @@ class pyramidChart{
         //* Debug section
     }
 
+    //* Parse through data and create return array called 'bars' with data
+    //* Format: {year, data[]
     getBarsByYear(_data){
         let years = []
         _data.forEach((values,i) => {
@@ -41,6 +43,7 @@ class pyramidChart{
         return bars
     }
 
+    //* Get max of data passed in by calcuating totals
     getMax(_data){
         let bars = []
         _data.forEach(data=>{
@@ -50,16 +53,20 @@ class pyramidChart{
         return Math.max(... bars)
     }
 
+    //* Scale by max passed in
     scale(_data, _max){
         let scale = this.height / _max
 
         return _data * scale;
     }
 
+    //* Renderer
     renderYear(_year){
-        stroke(0)
+        stroke(255)
+        fill(255)
         let max;
 
+        //* Colours for bars
         let maleColor = color(200,50,100)
         let femaleColor = color(0,50,100)
 
@@ -68,6 +75,7 @@ class pyramidChart{
         line(0, 0, this.width, 0)
         line(this.width/2,0,this.width/2,-this.height)
 
+        //* Foreach loop, checks if the year is equal to the year passed in at the render
         this.barsYear.forEach((check) => {
             if(check.year == _year){
                 let barWidth = ((this.height - (this.margin*2) - (this.gap*(check.data.length-1))) / check.data.length)
@@ -75,9 +83,12 @@ class pyramidChart{
 
                 max = this.getMax(check.data)
 
+                //* if a year is matched, go through each element of data and create a bar
                 check.data.forEach((bar,i) => {
                     push()
+                    //* Push the canvas to the center of the graph and up by the blockGap every loop
                     translate(this.width/2,-(blockGap*i)-this.margin)
+
                     //* Male side
                     fill(maleColor)
                     rect(0, 0, -this.scale(bar.male,max*2),-barWidth)
@@ -87,7 +98,7 @@ class pyramidChart{
                     fill(femaleColor)
                     rect(0, 0, this.scale(bar.female,max*2),-barWidth)
 
-                    fill(0)
+                    fill(255)
                     noStroke()
                     textAlign(RIGHT)
                     text(bar.ageGroup,-this.width/2 - 10,-barWidth/3)
@@ -96,6 +107,7 @@ class pyramidChart{
 
                 let keys = Object.keys((check.data)[1]);
 
+                //* Create the Topics at top left of graph
                 for(let x=0; x < 2; x++){
                     push()
                     translate(this.width,-this.height+(x*15))

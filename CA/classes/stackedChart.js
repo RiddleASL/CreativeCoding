@@ -72,10 +72,9 @@ class stackedChart{
     }
 
     render(){
+
         push()
         translate(this.posX, this.posY)
-        line(0,0,this.width,0)
-        line(0,0,0,-this.height)
         
 
         this.bars.forEach((bar,i) => {
@@ -96,17 +95,29 @@ class stackedChart{
             rect(0,-yMod,this.widthBlock,this.scaleBar(-femaleTotal))
             dataCount++
 
+            push()
+            rotate(-30)
+            fill(255)
+            noStroke()
+            textAlign(RIGHT)
+            text(bar.year,this.widthBlock/2,20)
+            pop()
+
             pop()
 
             for (let x = 0; x < dataCount; x++) {
                 fill(colorAngle*(x+1),100,100)
                 ellipse(this.width+30, -this.height+(20*x), 10)
-                fill(0)
+                fill(255)
                 noStroke()
                 text(Object.keys(bar.data[0])[x+1], this.width+40, -this.height+(23*x))
-                stroke(0)
+                stroke(255)
             }
+
         })
+
+        line(0,0,this.width,0)
+        line(0,0,0,-this.height)
 
         for(let x=0; x <= this.ticks; x++){
             line(0,-this.tickGap*x,-10,-this.tickGap*x)

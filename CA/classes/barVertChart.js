@@ -57,30 +57,28 @@ class barVertChart{
     }
 
     renderYear(_year){
-        stroke(0)
+        stroke(255)
+        fill(255)
         let year = _year.toString()
         let max;
 
         push()
         translate(this.posX, this.posY)
-        line(0, 0, this.width, 0)
-        line(0, 0, 0, -this.height)
 
         this.barsYear.forEach((check) => {
             if(check.year == year){
                 let barWidth = ((this.width - (this.margin*2) - (this.gap*(check.data.length-1))) / check.data.length)
-                let blockGap = barWidth+this.gap
-                let colorShade = 100/check.data.length;
+                let blockGap = barWidth+this.numGap
                 max = this.getMax(check.data)
 
                 check.data.forEach((bar,i) => {
                     push()
                         fill(140, 75, map(bar.total,0,max,30,100))
                         translate((this.margin + (i*blockGap)), 0)
+                        noStroke()
                         rect(0, 0, barWidth, this.scale(-bar.total,max))
                         textAlign(CENTER)
-                        noStroke()
-                        fill(0)
+                        fill(255)
                         text(bar.total,barWidth/2,this.scale(-bar.total,max)-10)
 
                         push()
@@ -96,13 +94,17 @@ class barVertChart{
 
         let numGap = max / this.ticks
 
+        line(0, 0, this.width, 0)
+        line(0, 0, 0, -this.height)
+
         for(let x=0; x <= this.ticks; x++){
             textAlign(RIGHT)
-            stroke(0)
+            stroke(255)
             line(0,-this.tickGap*x,-10,-this.tickGap*x)
             noStroke()
             text(Math.ceil(numGap)*x,-20,-this.tickGap*x)
         }
+        text("People Injured:", -this.width/5, -this.height/2)
         pop()
     }
 }
